@@ -1,0 +1,113 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #1e2a3a;
+  font-family: 'Orbitron', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.container {
+  text-align: center;
+  background-color: rgba(27, 38, 59, 0.9);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 70px #ffd700;
+  z-index: 1;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 30px;
+  color: #ffd700;
+}
+
+#countdown {
+  font-size: 2.5em;
+  background-color: #1e2a3a;
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: inset 0 0 30px #ffd700;
+  display: inline-block;
+  color: #ffcc00;
+  letter-spacing: 2px;
+}
+
+#countdown span.label {
+  font-size: 0.5em;
+  color: #aaa;
+  margin-left: 4px;
+  margin-right: 12px;
+}
+
+/* Barra de Progresso */
+.progress-container {
+  width: 100%;
+  max-width: 600px;
+  height: 25px;
+  background-color: #77797a;
+  border-radius: 20px;
+  margin: 30px auto 0;
+  box-shadow: inset 0 0 10px #000000;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ffd700, #1e2a3a);
+  transition: width 1s linear;
+  border-radius: 20px;
+}
+
+/* Cometas passando no fundo */
+.cometa {
+  position: fixed;
+  top: 0;
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, #ffffff, transparent);
+  opacity: 0.8;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cometa1 {
+  animation: moverCometa 10s linear infinite;
+  top: 20%;
+  left: -200px;
+  transform: rotate(30deg);
+}
+
+.cometa2 {
+  animation: moverCometa 15s linear infinite;
+  top: 50%;
+  left: -250px;
+  transform: rotate(25deg);
+  animation-delay: 5s;
+}
+
+.cometa3 {
+  animation: moverCometa 20s linear infinite;
+  top: 80%;
+  left: -300px;
+  transform: rotate(35deg);
+  animation-delay: 10s;
+}
+
+@keyframes moverCometa {
+  0% {
+    transform: translateX(0) rotate(30deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(150vw) rotate(30deg);
+    opacity: 0;
+  }
+}

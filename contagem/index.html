@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cometa Halley - Contagem Regressiva</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Cometas no fundo -->
+  <div class="cometa cometa1"></div>
+  <div class="cometa cometa2"></div>
+  <div class="cometa cometa3"></div>
+
+  <div class="container">
+    <h1>Contagem Regressiva para o Cometa Halley</h1>
+
+    <div id="countdown">
+      <span id="dias"></span><span class="label">D</span> :
+      <span id="horas"></span><span class="label">H</span> :
+      <span id="minutos"></span><span class="label">M</span> :
+      <span id="segundos"></span><span class="label">S</span>
+    </div>
+
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
