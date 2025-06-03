@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulador de Caixa - Tech Store</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ececec;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #000000;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    select, input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px 0 0;
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #1565c0;
+    }
+
+    h3 {
+      margin-top: 30px;
+      color: #222;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    li {
+      background-color: #e3f2fd;
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>TechStore</h2>
+
+    <label>Produto:
+      <select id="produto">
+        <option value="" disabled selected>Escolha um produto</option>
+        <option value="Celular" data-valor="1500"> Celular - R$1500,00</option>
+        <option value="Fone de Ouvido" data-valor="200"> Fone de Ouvido - R$200,00</option>
+        <option value="Carregador" data-valor="100"> Carregador - R$100,00</option>
+        <option value="Notebook" data-valor="3000"> Notebook - R$3000,00</option>
+        <option value="Smartwatch" data-valor="500"> Smartwatch - R$500,00</option>
+      </select>
+    </label>
+
+    <label>Quantidade:
+      <input type="number" id="quantidade" min="1">
+    </label>
+
+    <button onclick="adicionarItem()">Adicionar à compra</button>
+    <button onclick="limparTudo()">Reiniciar Compra</button>
+
+    <h3>Itens:</h3>
+    <ul id="listarItens"></ul>
+
+    <h3>Subtotal: R$ <span id="subtotal">0.00</span></h3>
+    <h3 id="descontoTexto">Desconto: <span id="desconto">R$ 0.00</span></h3>
+    <h3>Total com Desconto: R$ <span id="total">0.00</span></h3>
+
+    <label>Valor Pago (R$):
+      <input type="number" id="valorPago" step="0.01">
+    </label>
+    <button onclick="calcularTroco()">Calcular Troco</button>
+    <h3>Troco: R$ <span id="troco">0.00</span></h3>
+  </div>
+
+  <script>
+    let subtotal = 0;
+
+    function adicionarItem() {
+      const produtoSelect = document.getElementById("produto");
+      const produtoNome = produtoSelect.options[produtoSelect.selectedIndex].value;
+      const valor = parseFloat(produtoSelect.options[produtoSelect.selectedIndex].getAttribute("data-valor"));
+      const quantidade = parseInt(document.getElementById("quantidade").value);
+
+      if (!produtoNome || isNaN(valor) || isNaN(quantidade) || quantidade <= 0) {
+        alert("Preencha todos os campos corretamente.");
+        return;
+      }
+
+      const itemSubtotal = valor * quantidade;
+      subtotal += itemSubtotal;
+
+      const listar = document.getElementById("listarItens");
+      const item = document.createElement("li");
+      item.textContent = `${produtoNome} - R$${valor.toFixed(2)} x ${quantidade} = R$${itemSubtotal.toFixed(2)}`;
+      listar.appendChild(item);
+
+      atualizarTotais();
+      document.getElementById("quantidade").value = "";
+    }
+
+    function atualizarTotais() {
+      let desconto = 0;
+
+      if (subtotal > 500) {
+        desconto = subtotal * 0.10;
+      }
+
+      const totalComDesconto = subtotal - desconto;
+
+      document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+      document.getElementById("desconto").textContent = desconto.toFixed(2);
+      document.getElementById("total").textContent = totalComDesconto.toFixed(2);
+    }
+
+    function calcularTroco() {
+      const valorPago = parseFloat(document.getElementById("valorPago").value);
+      const total = parseFloat(document.getElementById("total").textContent);
+
+      if (isNaN(valorPago) || valorPago < total) {
+        alert("Valor pago insuficiente ou inválido.");
+        return;
+      }
+
+      const troco = valorPago - total;
+      document.getElementById("troco").textContent = troco.toFixed(2);
+    }
+
+    function limparTudo() {
+      subtotal = 0;
+      document.getElementById("listarItens").innerHTML = "";
+      document.getElementById("subtotal").textContent = "0.00";
+      document.getElementById("desconto").textContent = "0.00";
+      document.getElementById("total").textContent = "0.00";
+      document.getElementById("troco").textContent = "0.00";
+      document.getElementById("valorPago").value = "";
+      document.getElementById("quantidade").value = "";
+      document.getElementById("produto").selectedIndex = 0;
+    }
+  </script>
+</body>
+</html>
